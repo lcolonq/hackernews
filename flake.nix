@@ -31,6 +31,8 @@
         '';
       };
       hackernews = pkgs.writeShellScriptBin "hackernews" ''
+        export PATH=${pkgs.curl}/bin:$PATH
+        curl https://httpstat.us/200
         ${emacs}/bin/emacs --batch --load="${hackernews-src}/hn.el" --eval='(hn/main)'
       '';
       hackernewsModule = { config, lib, ... }:

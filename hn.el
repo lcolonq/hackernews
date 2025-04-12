@@ -10,6 +10,8 @@
 
 (defconst hn/root (f-parent (f-canonical load-file-name)))
 (defconst hn/data (or (getenv "HACKERNEWS_DATA_DIR") hn/root))
+(message "root: %s" hn/root)
+(message "data: %s" hn/data)
 
 (defun hn/youtube-feed (url)
   "Given a YouTube channel page URL, return the feed URL."
@@ -33,7 +35,7 @@
 Return nil on error."
   (condition-case nil (read s) (error nil)))
 (setq elfeed-feeds (hn/read-sexp (f-read-text (f-join hn/root "feeds.eld"))))
-(print elfeed-feeds)
+(message "feeds: %s" elfeed-feeds)
 (setq elfeed-db-directory (f-join hn/data "elfeed"))
 (defun hn/elfeed-log-wrapper (f &rest args)
   "Advice function wrapping F and ARGS."
