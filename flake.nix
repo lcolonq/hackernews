@@ -48,7 +48,9 @@
           config = lib.mkIf cfg.enable {
             users.users.hackernews = {
               isSystemUser = true;
+              group = "hackernews";
             };
+            users.groups.hackernews = {};
             systemd.services."colonq.hackernews" = {
               wantedBy = ["multi-user.target"];
               serviceConfig = {
