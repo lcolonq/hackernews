@@ -46,19 +46,16 @@
             };
           };
           config = lib.mkIf cfg.enable {
+            users.users.hackernews = {
+              isSystemUser = true;
+            };
             systemd.services."colonq.hackernews" = {
               wantedBy = ["multi-user.target"];
               serviceConfig = {
+                User = "hackernews";
                 Restart = "on-failure";
                 Environment = "HACKERNEWS_DATA_DIR=${cfg.dataDir}";
                 ExecStart = "${hackernews}/bin/hackernews";
-                DynamicUser = "yes";
-                RuntimeDirectory = "colonq.hackernews";
-                RuntimeDirectoryMode = "0755";
-                StateDirectory = "colonq.hackernews";
-                StateDirectoryMode = "0700";
-                CacheDirectory = "colonq.hackernews";
-                CacheDirectoryMode = "0750";
               };
             };
           };
