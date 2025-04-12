@@ -33,6 +33,7 @@
 Return nil on error."
   (condition-case nil (read s) (error nil)))
 (setq elfeed-feeds (hn/read-sexp (f-read-text (f-join hn/root "feeds.eld"))))
+(print elfeed-feeds)
 (setq elfeed-db-directory (f-join hn/data "elfeed"))
 
 (defun hn/get-recent-entries ()
