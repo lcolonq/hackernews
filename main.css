@@ -1,0 +1,38 @@
+body {
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 10pt;
+    color: #828282;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 80%;
+}
+
+#hn-header {
+    max-height: 16px;
+    padding: 4px;
+    color: #e3e8e6;
+    background-color: green;
+}
+
+#hn-header > img {
+    vertical-align: top;
+}
+
+#hn-title {
+    margin-right: 7px;
+}
+
+a {
+    text-decoration: none;
+    color: #e3e8e6;
+}
+
+ol {
+    padding-left: 30px;
+    margin-top: 7px;
+}
+
+.hn-link-below {
+    font-size: 7pt;
+    margin-bottom: 7px;
+}

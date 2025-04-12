@@ -1,0 +1,4 @@
+elfeed/*
+.direnv/*
+*.eln
+result
