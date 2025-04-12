@@ -50,7 +50,7 @@
               wantedBy = ["multi-user.target"];
               serviceConfig = {
                 Restart = "on-failure";
-                Environment = "HACKERNEWS=${cfg.dataDir}";
+                Environment = "HACKERNEWS_DATA_DIR=${cfg.dataDir}";
                 ExecStart = "${hackernews}/bin/hackernews";
                 DynamicUser = "yes";
                 RuntimeDirectory = "colonq.hackernews";
