@@ -35,6 +35,11 @@ Return nil on error."
 (setq elfeed-feeds (hn/read-sexp (f-read-text (f-join hn/root "feeds.eld"))))
 (print elfeed-feeds)
 (setq elfeed-db-directory (f-join hn/data "elfeed"))
+(defun hn/elfeed-log-wrapper (f &rest args)
+  "Advice function wrapping F and ARGS."
+  (ignore f)
+  (message "elfeed: %s" args))
+(advice-add 'elfeed-log :around #'hn/elfeed-log-wrapper)
 
 (defun hn/get-recent-entries ()
   "Return a list of recent feed entries."
