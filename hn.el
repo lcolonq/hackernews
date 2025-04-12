@@ -122,11 +122,12 @@ Content-Length: %s\r
                (title () "Hacker News")
                (style () ,(f-read-text (f-join hn/root "main.css"))))
              (body ()
-               (div ((id . "hn-header"))
-                 (img ((src . "/logo.png")) "")
-                 (b ((id . "hn-title")) "Hacker News")
-                 "new | past | comments | ask | show | jobs | submit")
-               ,(hn/render-entries (hn/get-recent-entries)))))))))
+               (div ((id . "hn-body"))
+                 (div ((id . "hn-header"))
+                   (img ((src . "/logo.png")) "")
+                   (b ((id . "hn-title")) "Hacker News")
+                   "new | past | comments | ask | show | jobs | submit")
+                 ,(hn/render-entries (hn/get-recent-entries))))))))))
 
 (defun hn/handle-request (proc)
   "Read and handle a request from the current buffer by client PROC."
