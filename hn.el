@@ -175,7 +175,7 @@ Content-Length: %s\r
   "Run the server and loop forever."
   (hn/server-start)
   (hn/update-feeds)
-  (run-with-timer 60 t #'hn/update-feeds)
+  (run-with-timer 600 t #'hn/update-feeds)
   (while t (sit-for 0.000001)))
 
 (provide 'hn)
