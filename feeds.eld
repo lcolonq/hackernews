@@ -228,4 +228,6 @@
     tomaterr)
   ("https://www.youtube.com/feeds/videos.xml?channel_id=UCNypeTQAfb2pBA-BLPYK0kg"
     irek32)
+  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCtGoikgbxP4F3rgI9PldI9g"
+    liquidcake1)
   )

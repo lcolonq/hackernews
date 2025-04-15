@@ -21,9 +21,7 @@ body {
     vertical-align: top;
 }
 
-#hn-title {
-    margin-right: 7px;
-}
+#hn-title {}
 
 a {
     text-decoration: none;

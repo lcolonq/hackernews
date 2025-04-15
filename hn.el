@@ -5,10 +5,14 @@
 (require 'cl-lib)
 (require 'shr)
 (require 'f)
+(require 'ht)
 (require 'request)
 (require 'elfeed)
 
-(defconst hn/root (f-parent (f-canonical load-file-name)))
+(defconst hn/root
+  (if load-file-name
+    (f-parent (f-canonical load-file-name))
+    default-directory))
 (defconst hn/data (or (getenv "HACKERNEWS_DATA_DIR") hn/root))
 (message "root: %s" hn/root)
 (message "data: %s" hn/data)
@@ -53,6 +57,20 @@ Return nil on error."
       (cl-incf counter)
       (push entry ret))
     (nreverse ret)))
+(defun hn/get-recent-entries-no-duplicates ()
+  "Return a list of recent feed entries.
+Do not return any duplicates from the same feed."
+  (let ( (counter 0)
+         (visited (ht-create))
+         (ret nil))
+    (with-elfeed-db-visit (entry feed)
+      (when (> counter 29)
+        (elfeed-db-return))
+      (unless (ht-get visited feed)
+        (ht-set! visited feed t)
+        (cl-incf counter)
+        (push entry ret)))
+    (nreverse ret)))
 (defun hn/entry-default-author ()
   "Return a random default author."
   (let ((choices
@@ -79,9 +97,15 @@ Return nil on error."
        ,(format "%s points by %s %s hours ago | hide | %s comments"
           (+ (random 200) 10)
           (hn/entry-author e)
-          (+ 1 (random 11))
-          (random 50)
-          ))))
+          (round
+            (/
+              (time-convert
+                (time-subtract
+                  (current-time)
+                  (elfeed-entry-date e))
+                'integer)
+              3600.0))
+          (random 50)))))
 (defun hn/render-entries (es)
   "Convert the Elfeed entries ES into DOM."
   `(ol () ,@(--map `(li () ,(hn/render-entry it)) es)))
@@ -109,25 +133,33 @@ Content-Length: %s\r
   "Given DOM, return an HTML string."
   (shr-dom-to-xml dom))
 
+(defun hn/listing-page (title entries)
+  "Given TITLE and ENTRIES, return a page listing those entries."
+  (hn/html
+    `(html ()
+       (head ()
+         (title () ,title)
+         (style () ,(f-read-text (f-join hn/root "main.css"))))
+       (body ()
+         (div ((id . "hn-body"))
+           (div ((id . "hn-header"))
+             (img ((src . "/logo.png")) "")
+             (b ((id . "hn-title")) "Hacker News")
+             (a ((href . "/new")) "new")
+             " | past | comments | ask | show | jobs | submit")
+           ,(hn/render-entries entries))))))
+
 (defun hn/respond (path)
   "Given PATH, return a response to send back."
   (cond
     ((s-equals? path "/logo.png")
       (hn/200-content-type "image/png" (f-read-bytes (f-join hn/root "mrgreen.png"))))
+    ((s-equals? path "/new")
+      (hn/200
+        (hn/listing-page "New Links | Hacker News" (hn/get-recent-entries))))
     (t
       (hn/200
-        (hn/html
-          `(html ()
-             (head ()
-               (title () "Hacker News")
-               (style () ,(f-read-text (f-join hn/root "main.css"))))
-             (body ()
-               (div ((id . "hn-body"))
-                 (div ((id . "hn-header"))
-                   (img ((src . "/logo.png")) "")
-                   (b ((id . "hn-title")) "Hacker News")
-                   "new | past | comments | ask | show | jobs | submit")
-                 ,(hn/render-entries (hn/get-recent-entries))))))))))
+        (hn/listing-page "Hacker News" (hn/get-recent-entries-no-duplicates))))))
 
 (defun hn/handle-request (proc)
   "Read and handle a request from the current buffer by client PROC."
@@ -175,8 +207,7 @@ Content-Length: %s\r
   "Run the server and loop forever."
   (hn/server-start)
   (hn/update-feeds)
-  (run-with-timer 600 t #'hn/update-feeds)
-  (while t (sit-for 0.000001)))
+  (run-with-timer 600 t #'hn/update-feeds))
 
 (provide 'hn)
 ;;; hn.el ends here
