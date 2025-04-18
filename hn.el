@@ -90,22 +90,30 @@ Do not return any duplicates from the same feed."
       (hn/entry-default-author))))
 (defun hn/render-entry (e)
   "Convert the Elfeed entry E into DOM."
-  `(div ()
-     (div ((class . "hn-link-above"))
-       (a ((href . ,(elfeed-entry-link e))) ,(elfeed-entry-title e)))
-     (div ((class . "hn-link-below"))
-       ,(format "%s points by %s %s hours ago | hide | %s comments"
-          (+ (random 200) 10)
-          (hn/entry-author e)
-          (round
-            (/
-              (time-convert
-                (time-subtract
-                  (current-time)
-                  (elfeed-entry-date e))
-                'integer)
-              3600.0))
-          (random 50)))))
+  (let ((url (url-generic-parse-url (elfeed-entry-link e))))
+    `(div ()
+       (div ((class . "hn-link-above"))
+         (a ((href . ,(elfeed-entry-link e))) ,(elfeed-entry-title e))
+         ,@(when (-contains? '("gemini" "gopher") (url-type url))
+             (setf (url-type url) "")
+             `((a ( (href .
+                      ,(s-concat "https://portal.mozz.us/gemini/"
+                         (s-chop-prefix "://" (url-recreate-url url))))
+                    (class . "hn-link-proxy"))
+                 "(proxy)"))))
+       (div ((class . "hn-link-below"))
+         ,(format "%s points by %s %s hours ago | hide | %s comments"
+            (+ (random 200) 10)
+            (hn/entry-author e)
+            (round
+              (/
+                (time-convert
+                  (time-subtract
+                    (current-time)
+                    (elfeed-entry-date e))
+                  'integer)
+                3600.0))
+            (random 50))))))
 (defun hn/render-entries (es)
   "Convert the Elfeed entries ES into DOM."
   `(ol () ,@(--map `(li () ,(hn/render-entry it)) es)))

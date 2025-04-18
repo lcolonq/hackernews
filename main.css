@@ -37,6 +37,11 @@ ol {
     margin-top: 7px;
 }
 
+.hn-link-proxy {
+    color: #828282;
+    font-size: 7pt;
+}
+
 .hn-link-below {
     color: #828282;
     font-size: 7pt;
