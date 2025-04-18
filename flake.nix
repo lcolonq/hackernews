@@ -70,7 +70,10 @@
           emacs
         ];
       };
-      packages.x86_64-linux.default = hackernews;
+      packages.x86_64-linux = {
+        inherit emacs hackernews;
+        default = hackernews;
+      };
       nixosModules = {
         hackernews = hackernewsModule;
       };
