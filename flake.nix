@@ -60,7 +60,8 @@
               wantedBy = ["multi-user.target"];
               serviceConfig = {
                 User = "hackernews";
-                Restart = "on-failure";
+                RuntimeMaxSecs = 21600;
+                Restart = "always";
                 Environment = "HACKERNEWS_DATA_DIR=${cfg.dataDir}";
                 ExecStart = "${hackernews}/bin/hackernews";
               };
