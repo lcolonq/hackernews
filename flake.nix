@@ -35,6 +35,9 @@
         curl https://httpstat.us/200
         ${emacs}/bin/emacs --fg-daemon=hackernews --quick --load "${hackernews-src}/hn.el" --eval '(hn/main)'
       '';
+      jackin = pkgs.writeShellScriptBin "hackernews-jackin" ''
+        ${emacs}/bin/emacsclient --socket-name=hackernews --create-frame --eval
+      '';
       hackernewsModule = { config, lib, ... }:
         let
           cfg = config.colonq.services.hackernews;
@@ -71,11 +74,16 @@
         ];
       };
       packages.x86_64-linux = {
-        inherit emacs hackernews;
+        inherit emacs hackernews jackin;
         default = hackernews;
       };
       nixosModules = {
         hackernews = hackernewsModule;
+      };
+      overlay = self: super: {
+        hackernews = {
+          inherit emacs hackernews jackin;
+        };
       };
     };
 }
