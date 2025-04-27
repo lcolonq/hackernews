@@ -66,6 +66,7 @@
   ("https://30fps.net/atom.xml" bruxisma)
   ("https://rachelandrew.co.uk/feed" bruxisma)
   ("https://pub.colonq.computer/~sschr15/cgi-bin/blog.rss" sschr15)
+  ("https://fluted.omg.lol/rss.xml" fluted)
 
   ("https://www.youtube.com/feeds/videos.xml?channel_id=UCFcW86JuchB35JyRc8GQrag" lcolonq)
   ("https://www.youtube.com/feeds/videos.xml?channel_id=UCjNErCQgCndSOl6t33m1-nQ" lcolonq)
@@ -230,4 +231,8 @@
     irek32)
   ("https://www.youtube.com/feeds/videos.xml?channel_id=UCtGoikgbxP4F3rgI9PldI9g"
     liquidcake1)
+  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCS-WzPVpAAli-1IfEG2lN8A" 
+    fluted)
+  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCf_suVrG2dA5BTjJhNLwthQ" 
+    fluted)
   )
