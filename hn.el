@@ -131,7 +131,7 @@ Do not return any duplicates from the same feed."
 Content-Type: %s; charset=UTF-8\r
 Content-Length: %s\r
 \r
-%s" ct (length body) body))
+%s" ct (string-bytes body) body))
 
 (defun hn/200 (body)
   "Build a response string around BODY."
