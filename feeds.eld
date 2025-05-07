@@ -67,6 +67,8 @@
   ("https://rachelandrew.co.uk/feed" bruxisma)
   ("https://pub.colonq.computer/~sschr15/cgi-bin/blog.rss" sschr15)
   ("https://fluted.omg.lol/rss.xml" fluted)
+  ("https://mitchellh.com/feed.xml" Compilingjay)
+  ("https://reactos.org/index.xml" Compilingjay)
 
   ("https://www.youtube.com/feeds/videos.xml?channel_id=UCFcW86JuchB35JyRc8GQrag" lcolonq)
   ("https://www.youtube.com/feeds/videos.xml?channel_id=UCjNErCQgCndSOl6t33m1-nQ" lcolonq)
@@ -235,4 +237,12 @@
     fluted)
   ("https://www.youtube.com/feeds/videos.xml?channel_id=UCf_suVrG2dA5BTjJhNLwthQ" 
     fluted)
+  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCE1jXbVAGJQEORz9nZqb5bQ"
+    Compilingjay)
+  ("https://www.youtube.com/feeds/videos.xml?channel_id=UC1LpsuAUaKoMzzJSEt5WImw"
+    Compilingjay)
+  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCQBQeWDycPczq1zril7hHHg"
+    Compilingjay)
+  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCop6aovOTLqHsw2IgrRgYTQ"
+    Compilingjay)
   )
