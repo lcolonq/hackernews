@@ -71,6 +71,22 @@ Do not return any duplicates from the same feed."
         (cl-incf counter)
         (push entry ret)))
     (nreverse ret)))
+(defun hn/get-recent-entries-no-duplicates-no-youtube ()
+  "Return a list of recent feed entries.
+Do not return any duplicates from the same feed.
+Do not return any YouTube links"
+  (let ( (counter 0)
+         (visited (ht-create))
+         (ret nil))
+    (with-elfeed-db-visit (entry feed)
+      (when (> counter 29)
+        (elfeed-db-return))
+      (let ((url (url-generic-parse-url (elfeed-entry-link entry))))
+        (unless (or (ht-get visited feed) (s-contains? "youtube" (url-host url)))
+          (ht-set! visited feed t)
+          (cl-incf counter)
+          (push entry ret))))
+    (nreverse ret)))
 (defun hn/entry-default-author ()
   "Return a random default author."
   (let ((choices
@@ -94,13 +110,18 @@ Do not return any duplicates from the same feed."
     `(div ()
        (div ((class . "hn-link-above"))
          (a ((href . ,(elfeed-entry-link e))) ,(elfeed-entry-title e))
-         ,@(when (-contains? '("gemini" "gopher") (url-type url))
-             (setf (url-type url) "")
-             `((a ( (href .
-                      ,(s-concat "https://portal.mozz.us/gemini/"
-                         (s-chop-prefix "://" (url-recreate-url url))))
-                    (class . "hn-link-proxy"))
-                 "(proxy)"))))
+         ,@(cond
+             ((-contains? '("gemini" "gopher") (url-type url))
+               (setf (url-type url) "")
+               `((a ( (href .
+                        ,(s-concat "https://portal.mozz.us/gemini/"
+                           (s-chop-prefix "://" (url-recreate-url url))))
+                      (class . "hn-link-proxy"))
+                   "(gemini proxy)")))
+             (t
+               `((a ( (href . (s-concat "https://" (url-host url)))
+                      (class . "hn-link-proxy"))
+                   ,(format "(%s)" (url-host url)))))))
        (div ((class . "hn-link-below"))
          ,(format "%s points by %s %s hours ago | hide | %s comments"
             (+ (random 200) 10)
@@ -154,7 +175,9 @@ Content-Length: %s\r
              (img ((src . "/logo.png")) "")
              (b ((id . "hn-title")) "Hacker News")
              (a ((href . "/new")) "new")
-             " | past | comments | ask | show | jobs | submit")
+             " | past | comments | ask | show | "
+             (a ((href . "/jobs")) "jobs")
+             " | submit")
            ,(hn/render-entries entries))))))
 
 (defun hn/respond (path)
@@ -165,6 +188,9 @@ Content-Length: %s\r
     ((s-equals? path "/new")
       (hn/200
         (hn/listing-page "New Links | Hacker News" (hn/get-recent-entries))))
+    ((s-equals? path "/jobs")
+      (hn/200
+        (hn/listing-page "jobs | Hacker News" (hn/get-recent-entries-no-duplicates-no-youtube))))
     (t
       (hn/200
         (hn/listing-page "Hacker News" (hn/get-recent-entries-no-duplicates))))))
