@@ -14,6 +14,7 @@
   ("https://taylor.town/feed.xml" lcolonq)
   ("https://bernsteinbear.com/feed.xml" lcolonq)
   ("https://blog.zarfhome.com/feeds/posts/default.rss" lcolonq)
+  ("http://shmuplations.com/feed/" lcolonq)
   ("https://www.gamingonlinux.com/article_rss.php" azrhyga)
   ("https://jvns.ca/atom.xml" cristober)
   ("https://www.ralfj.de/blog/feed.xml" devts_de)
