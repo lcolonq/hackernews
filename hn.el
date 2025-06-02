@@ -119,7 +119,7 @@ Do not return any YouTube links"
                       (class . "hn-link-proxy"))
                    "(gemini proxy)")))
              (t
-               `((a ( (href . (s-concat "https://" (url-host url)))
+               `((a ( (href . ,(s-concat "https://" (url-host url)))
                       (class . "hn-link-proxy"))
                    ,(format "(%s)" (url-host url)))))))
        (div ((class . "hn-link-below"))
