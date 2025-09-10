@@ -162,6 +162,50 @@ Content-Length: %s\r
   "Given DOM, return an HTML string."
   (shr-dom-to-xml dom))
 
+(defun hn/xml (dom)
+  "Given DOM, return an XML string."
+  (with-temp-buffer
+    (insert "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n")
+    (dom-print dom nil t)
+    (insert "\n")
+    (buffer-string)))
+
+(defun hn/atom-time (time)
+  "Convert TIME to a string."
+  (format-time-string "%Y-%m-%dT%H:%M:%SZ" time 0))
+
+(defun hn/atom-feed (title url entries)
+  "Given TITLE, URL, and ENTRIES, return an Atom feed listing those entries."
+  (let*
+    ( (newest (list 0 0 0 0))
+      (nonces nil)
+      (ents
+        (-map
+          (lambda (ent)
+            (when (time-less-p newest (elfeed-entry-date ent))
+              (setf newest (elfeed-entry-date ent)))
+            (let ((nonce (s-concat "urn:sha256:" (secure-hash 'sha256 (elfeed-entry-link ent)))))
+              (push nonce nonces)
+              `(entry ()
+                 (title ()
+                   ,(s-concat
+                      (elfeed-feed-title (elfeed-entry-feed ent)) " > " (elfeed-entry-title ent)))
+                 (link ((href . ,(elfeed-entry-link ent))))
+                 (id () ,nonce)
+                 (author ()
+                   (name () ,(hn/entry-author ent)))
+                 (updated () ,(hn/atom-time (elfeed-entry-date ent)))
+                 )))
+          entries)))
+    (hn/xml
+      `(feed ((xmlns . "http://www.w3.org/2005/Atom"))
+         (title () ,title)
+         (link ((rel . "self") (href . ,url)))
+         (link ((href . "https://news.colonq.computer")))
+         (updated () ,(hn/atom-time newest))
+         (id () "https://news.colonq.computer/")
+         ,@ents))))
+
 (defun hn/listing-page (title entries)
   "Given TITLE and ENTRIES, return a page listing those entries."
   (hn/html
@@ -185,6 +229,9 @@ Content-Length: %s\r
   (cond
     ((s-equals? path "/logo.png")
       (hn/200-content-type "image/png" (f-read-bytes (f-join hn/root "mrgreen.png"))))
+    ((s-equals? path "/atom.xml")
+      (hn/200
+        (hn/atom-feed "GREEN NEWS" "https://news.colonq.computer/atom.xml" (hn/get-recent-entries-no-duplicates))))
     ((s-equals? path "/new")
       (hn/200
         (hn/listing-page "New Links | Hacker News" (hn/get-recent-entries))))

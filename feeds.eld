@@ -82,6 +82,7 @@
   ("https://www.youtube.com/feeds/videos.xml?channel_id=UC9UJ7FU85pQujXTZkfUq24g" lcolonq)
   ("https://www.youtube.com/feeds/videos.xml?channel_id=UCAYF6ZY9gWBR1GW3R7PX7yw" lcolonq)
   ("https://www.youtube.com/feeds/videos.xml?channel_id=UCo0-VCHchPIG3JtJlIQnFew" lcolonq)
+  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCxddeIv7GdHNcVPZI9JvGXQ" lcolonq)
   ("https://www.youtube.com/feeds/videos.xml?channel_id=UCEp20NgOZHmgWdbQdHSxgjw"
     colinahscopy_)
   ("https://www.youtube.com/feeds/videos.xml?channel_id=UC5I2hjZYiW9gZPVkvzM8_Cw"
