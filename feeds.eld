@@ -16,6 +16,7 @@
   ("https://blog.zarfhome.com/feeds/posts/default.rss" lcolonq)
   ("http://shmuplations.com/feed/" lcolonq)
   ("https://flak.tedunangst.com/rss" lcolonq)
+  ("https://borretti.me/feed.xml" lcolonq)
   ("https://www.gamingonlinux.com/article_rss.php" azrhyga)
   ("https://jvns.ca/atom.xml" cristober)
   ("https://www.ralfj.de/blog/feed.xml" devts_de)
@@ -72,6 +73,9 @@
   ("https://mitchellh.com/feed.xml" Compilingjay)
   ("https://reactos.org/index.xml" Compilingjay)
   ("https://www.todepond.com/feed/index.xml" a_tension_span)
+  ("https://feeds.feedburner.com/incodeblog" darius)
+  ("https://chipsandcheese.com/feed" darius)
+  ("https://irreal.org/blog/?feed=rss2" darius)
 
   ("https://www.youtube.com/feeds/videos.xml?channel_id=UCFcW86JuchB35JyRc8GQrag" lcolonq)
   ("https://www.youtube.com/feeds/videos.xml?channel_id=UCjNErCQgCndSOl6t33m1-nQ" lcolonq)
