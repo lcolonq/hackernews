@@ -76,6 +76,7 @@
   ("https://feeds.feedburner.com/incodeblog" darius)
   ("https://chipsandcheese.com/feed" darius)
   ("https://irreal.org/blog/?feed=rss2" darius)
+  ("https://www.futurile.net/feeds/all.atom.xml" abc123)
 
   ("https://www.youtube.com/feeds/videos.xml?channel_id=UCFcW86JuchB35JyRc8GQrag" lcolonq)
   ("https://www.youtube.com/feeds/videos.xml?channel_id=UCjNErCQgCndSOl6t33m1-nQ" lcolonq)
