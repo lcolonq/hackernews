@@ -1,4 +1,5 @@
 (
+  ("https://i.ell.dev/feed?tag=computer" ellg)
   ("https://ianthehenry.com/feed.xml" lcolonq)
   ("https://blog.fogus.me/feed/" lcolonq)
   ("https://xeiaso.net/blog.rss" lcolonq)
@@ -17,6 +18,7 @@
   ("http://shmuplations.com/feed/" lcolonq)
   ("https://flak.tedunangst.com/rss" lcolonq)
   ("https://borretti.me/feed.xml" lcolonq)
+  ("https://banteg.xyz/index.xml" lcolonq)
   ("https://www.gamingonlinux.com/article_rss.php" azrhyga)
   ("https://jvns.ca/atom.xml" cristober)
   ("https://www.ralfj.de/blog/feed.xml" devts_de)
@@ -77,6 +79,8 @@
   ("https://chipsandcheese.com/feed" darius)
   ("https://irreal.org/blog/?feed=rss2" darius)
   ("https://www.futurile.net/feeds/all.atom.xml" abc123)
+  ("https://garden.bradwoods.io/rss.xml" ellg)
+  ("https://standardebooks.org/feeds/rss/new-releases" fighting_annelids)
 
   ("https://www.youtube.com/feeds/videos.xml?channel_id=UCFcW86JuchB35JyRc8GQrag" lcolonq)
   ("https://www.youtube.com/feeds/videos.xml?channel_id=UCjNErCQgCndSOl6t33m1-nQ" lcolonq)
@@ -254,4 +258,6 @@
     Compilingjay)
   ("https://www.youtube.com/feeds/videos.xml?channel_id=UCop6aovOTLqHsw2IgrRgYTQ"
     Compilingjay)
+  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCVovvq34gd0ps5cVYNZrc7A"
+    fighting_annelids)
   )
