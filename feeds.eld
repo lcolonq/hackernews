@@ -260,4 +260,6 @@
     Compilingjay)
   ("https://www.youtube.com/feeds/videos.xml?channel_id=UCVovvq34gd0ps5cVYNZrc7A"
     fighting_annelids)
+  ("https://www.youtube.com/feeds/videos.xml?channel_id=UC1yNl2E66ZzKApQdRuTQ4tw"
+    fighting_annelids)
   )
